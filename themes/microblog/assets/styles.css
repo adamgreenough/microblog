@@ -8,10 +8,16 @@
 	color: #2f2f2f;
 }
 
-body {
-	padding: 30px;
-	max-width: 1440px;
-	margin: auto;
+@media(max-width: 1200px) {
+	:root { 	
+		font-size: 18px;
+	}
+}
+
+@media(max-width: 800px) {
+	:root { 	
+		font-size: 16px;
+	}
 }
 
 p, ul, ol, blockquote {
@@ -68,14 +74,22 @@ pre {
 	margin-right: 10px;
 }
 
-.container {
+.container-wide {
+	max-width: 1400px;
+	width: 100%;
+	margin: auto;
+	padding: 0 20px;
+}
+
+.container-narrow {
 	max-width: 800px;
+	padding: 0 20px;
 	width: 100%;
 	margin: auto;
 }
 
 .blog-preview {
-	margin-bottom: 50px;
+	margin-top: 50px;
 }
 
 .blog-preview h2 {
@@ -89,7 +103,7 @@ p.small, .footnotes {
 
 a {
 	text-decoration: none;
-	color: #6a3093;
+	color: #2090f3;
 	font-weight: bold;
 }
 
@@ -135,4 +149,19 @@ table tr th :first-child, table tr td :first-child {
 
 table tr th :last-child, table tr td :last-child {
 	margin-bottom: 0; 
+}
+
+.hero {
+	color: #fff;
+	padding: 50px 0;
+	background: #06205d;
+}
+
+.hero h1 {
+	margin: 0;
+}
+
+.hero p.small {
+	color: #fff;
+	opacity: 0.7;
 }

@@ -7,6 +7,15 @@ function convert_markdown($content) {
 	return $content;
 }
 
+// Swap tags
+function swap_tags($content) {
+    $config = include('config.php');
+    
+    $content = str_replace("%media%", $config['blog_url'] . '/media', $content);
+    
+    return $content;
+}
+
 // Convert array of posts into JSON
 function generate_json($posts) {
     return json_encode($posts, JSON_PRETTY_PRINT);
@@ -26,12 +35,13 @@ function generate_rss($posts) {
 
     foreach($posts as $p){
         $item = new Suin\RSSWriter\Item();
-        $url = get_post_link($p);
+        $url = $config['blog_url'] . '/' . $p->slug . '/';
         
         $item
             ->title($p->title)
             ->description($p->body)
             ->url($url)
+            ->pubDate($p->date)
             ->appendTo($channel);
     }
 

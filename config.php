@@ -12,10 +12,10 @@ return array(
 'blog_url' => 'https://microblog.adamgreenough.me',
 
 // The name of your blog
-'blog_name' => 'Nicholas Demo',
+'blog_name' => 'Adam\'s Microblog',
 
 // A short description of your blog
-'blog_description' => 'Welcome to my amazing blog powered by Nicholas',
+'blog_description' => 'The personal microblog of Adam Greenough.',
 
 /* ============================================
    Front-end Settings
@@ -25,7 +25,7 @@ return array(
 'use_frontend' => true,
 
 // Front-end theme
-'frontend_theme' => 'default',
+'frontend_theme' => 'microblog',
  
 // Date format
 'date_format' => 'jS F Y',
@@ -39,9 +39,9 @@ return array(
 
 // If your Nicholas installation is not in the web root,
 // enter your folder name here with a preceding slash (eg. /blog)
-'base_url' => '/',
+'base_url' => '',
 
 // Prepend year and month to post URLs to help avoid slug conflicts?
-'post_base' => false
+'post_base' => true
 
 );

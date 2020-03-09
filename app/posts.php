@@ -69,17 +69,15 @@ function get_posts($page = 1, $perPage = null, $tag = null) {
 		// Split the date & slug from file name
 		$arr = explode('_', $v);
 		$post->date = strtotime(str_replace('posts/','',$arr[0]));
-		if($arr[1]) {	
-			$post->slug = basename($arr[1], '.md');
-		}
+		$post->slug = basename($arr[1], '.md');
 		
 		// Get the contents and convert it to HTML
 		$meta = $content->getData();
-		$post->title = $meta['title'] ?? 'No title';
-		$post->body = convert_markdown($content->getContent());
+		$post->title = $meta['title'] ?? '';
 		$post->image = $meta['image'] ?? '';
-		$post->excerpt = $meta['excerpt'] ?? substr($post->body, 0, 140);
+		$post->excerpt = $meta['excerpt'] ?? '';
 		$post->tags = array_map('trim', explode(',', $meta['tags'] ?? '')) ?? ''; // Split tags on comma, trim whitespace
+		$post->body = convert_markdown(swap_tags($content->getContent()));
 		
 		$tmp[] = $post;
     }
@@ -88,11 +86,9 @@ function get_posts($page = 1, $perPage = null, $tag = null) {
 }
 
 // Get the full contents of a single post
-function get_single($slug, $year = '*', $month = '*') {
+function get_single($slug) {
 	$frontMatter = new Webuni\FrontMatter\FrontMatter();
-	$date = $year . '-' . $month . '-*';
-	
-	$single = get_post_list($slug, $date);
+	$single = get_post_list($slug);
 	
 	if($single[0]) { // Check post exists
 	    $post = new stdClass;
@@ -103,11 +99,11 @@ function get_single($slug, $year = '*', $month = '*') {
 	    
 		// Get the contents and convert it to HTML
 		$meta = $content->getData();
-		$post->title = $meta['title'] ?? 'No title';
+		$post->title = $meta['title'] ?? '';
 		$post->image = $meta['image'] ?? '';
-		$post->excerpt = $meta['excerpt'] ?? substr($post->body, 0, 140);
-		$post->tags = array_map('trim', explode(',', $meta['tags'])) ?? ''; // Split tags on comma, trim whitespace
-		$post->body = convert_markdown($content->getContent());
+		$post->excerpt = $meta['excerpt'] ?? '';
+		$post->tags = array_map('trim', explode(',', $meta['tags'] ?? '')) ?? ''; // Split tags on comma, trim whitespace
+		$post->body = convert_markdown(swap_tags($content->getContent()));
 	    
 	    return $post;
     }
